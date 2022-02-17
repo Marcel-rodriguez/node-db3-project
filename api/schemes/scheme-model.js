@@ -18,13 +18,11 @@ const find = async () => { // EXERCISE A
     Return from this function the resulting dataset.
   */
 
-    const data = await db('schemes as sc', 'st.step_id as number_of_steps')
-    .leftJoin('steps as st')
-    .on('sc.scheme_id = st.scheme_id')
+    return db('schemes as sc')
+    .leftJoin('steps as st','sc.scheme_id' , 'st.scheme_id' )
+    .select('sc.*')
+    .count('st.step_id as number_of_steps')
     .groupBy('sc.scheme_id')
-    .orderBy('sc.scheme_id')
-
-    return data
 }
 
 function findById(scheme_id) { // EXERCISE B
